@@ -1,6 +1,7 @@
 package com.esk.desafio.dio.EskPeopleApi.resources;
 
 import com.esk.desafio.dio.EskPeopleApi.domain.People;
+import com.esk.desafio.dio.EskPeopleApi.dto.PeopleDto;
 import com.esk.desafio.dio.EskPeopleApi.services.PeopleService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -10,6 +11,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @RestController
 @RequestMapping(value = "/peoples")
@@ -19,8 +21,9 @@ public class PeopleResource {
     private PeopleService peopleService;
 
     @GetMapping
-    public ResponseEntity<List<People>> findAll() {
+    public ResponseEntity<List<PeopleDto>> findAll() {
         List<People> list = peopleService.findAll();
-        return ResponseEntity.ok(list);
+        List<PeopleDto> listDto = list.stream().map(p -> new PeopleDto(p)).collect(Collectors.toList());
+        return ResponseEntity.ok(listDto);
     }
 }
