@@ -14,11 +14,11 @@ public class People {
     public People() {
     }
 
-    public People(String id, String name, String email, String password) {
+    public People(String id, String name, String email/*, String password*/) {
         this.id = id;
         this.name = name;
         this.email = email;
-        this.password = password;
+        // this.password = password;
     }
 
     public String getId() {

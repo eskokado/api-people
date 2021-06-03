@@ -17,9 +17,9 @@ public class Instantiation implements CommandLineRunner {
     public void run(String... args) throws Exception {
         peopleRepository.deleteAll();
 
-        People jose = new People(null, "Joao Daniel", "joaodaniel@email.com", "123456");
-        People maria = new People(null, "Maria Silva", "mariasilva@email.com", "123456");
-        People paulo = new People(null, "Paulo Souza", "paulosouza@email.com", "123456");
+        People jose = new People(null, "Joao Daniel", "joaodaniel@email.com");
+        People maria = new People(null, "Maria Silva", "mariasilva@email.com");
+        People paulo = new People(null, "Paulo Souza", "paulosouza@email.com");
 
         peopleRepository.saveAll(Arrays.asList(jose, maria, paulo));
     }
