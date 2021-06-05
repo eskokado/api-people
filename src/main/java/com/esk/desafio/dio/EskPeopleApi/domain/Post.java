@@ -1,5 +1,6 @@
 package com.esk.desafio.dio.EskPeopleApi.domain;
 
+import com.esk.desafio.dio.EskPeopleApi.dto.AuthorDto;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 
@@ -13,12 +14,12 @@ public class Post {
     private Date date;
     private String title;
     private String body;
-    private People author;
+    private AuthorDto author;
 
     public Post() {
     }
 
-    public Post(String id, Date date, String title, String body, People author) {
+    public Post(String id, Date date, String title, String body, AuthorDto author) {
         this.id = id;
         this.date = date;
         this.title = title;
@@ -58,11 +59,11 @@ public class Post {
         this.body = body;
     }
 
-    public People getAuthor() {
+    public AuthorDto getAuthor() {
         return author;
     }
 
-    public void setAuthor(People author) {
+    public void setAuthor(AuthorDto author) {
         this.author = author;
     }
 
