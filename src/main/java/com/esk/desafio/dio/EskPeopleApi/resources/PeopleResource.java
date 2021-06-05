@@ -1,6 +1,7 @@
 package com.esk.desafio.dio.EskPeopleApi.resources;
 
 import com.esk.desafio.dio.EskPeopleApi.domain.People;
+import com.esk.desafio.dio.EskPeopleApi.domain.Post;
 import com.esk.desafio.dio.EskPeopleApi.dto.PeopleDto;
 import com.esk.desafio.dio.EskPeopleApi.services.PeopleService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -54,5 +55,11 @@ public class PeopleResource {
         obj.setId(id);
         peopleService.update(obj);
         return ResponseEntity.noContent().build();
+    }
+
+    @GetMapping(value = "/{id}/posts")
+    public ResponseEntity<List<Post>> findPosts(@PathVariable String id) {
+        People obj = peopleService.findById(id);
+        return ResponseEntity.ok(obj.getPosts());
     }
 }
