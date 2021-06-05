@@ -1,7 +1,11 @@
 package com.esk.desafio.dio.EskPeopleApi.domain;
 
 import org.springframework.data.annotation.Id;
+import org.springframework.data.mongodb.core.mapping.DBRef;
 import org.springframework.data.mongodb.core.mapping.Document;
+
+import java.util.ArrayList;
+import java.util.List;
 
 @Document(collection = "people")
 public class People {
@@ -10,6 +14,9 @@ public class People {
     private String name;
     private String email;
     private String password;
+
+    @DBRef(lazy = true)
+    private List<Post> posts = new ArrayList<>();
 
     public People() {
     }
@@ -52,4 +59,13 @@ public class People {
     public void setPassword(String password) {
         this.password = password;
     }
+
+    public List<Post> getPosts() {
+        return posts;
+    }
+
+    public void setPosts(List<Post> posts) {
+        this.posts = posts;
+    }
+
 }
