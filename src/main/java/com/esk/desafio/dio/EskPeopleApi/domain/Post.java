@@ -1,10 +1,13 @@
 package com.esk.desafio.dio.EskPeopleApi.domain;
 
 import com.esk.desafio.dio.EskPeopleApi.dto.AuthorDto;
+import com.esk.desafio.dio.EskPeopleApi.dto.CommentDto;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 @Document(collection = "post")
 public class Post {
@@ -15,6 +18,8 @@ public class Post {
     private String title;
     private String body;
     private AuthorDto author;
+
+    private List<CommentDto> comments = new ArrayList<>();
 
     public Post() {
     }
@@ -67,5 +72,11 @@ public class Post {
         this.author = author;
     }
 
+    public List<CommentDto> getComments() {
+        return comments;
+    }
 
+    public void setComments(List<CommentDto> comments) {
+        this.comments = comments;
+    }
 }

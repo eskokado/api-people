@@ -3,6 +3,7 @@ package com.esk.desafio.dio.EskPeopleApi.config;
 import com.esk.desafio.dio.EskPeopleApi.domain.People;
 import com.esk.desafio.dio.EskPeopleApi.domain.Post;
 import com.esk.desafio.dio.EskPeopleApi.dto.AuthorDto;
+import com.esk.desafio.dio.EskPeopleApi.dto.CommentDto;
 import com.esk.desafio.dio.EskPeopleApi.repositories.PeopleRepository;
 import com.esk.desafio.dio.EskPeopleApi.repositories.PostRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -37,6 +38,13 @@ public class Instantiation implements CommandLineRunner {
 
         Post post1 = new Post(null, sdf.parse("01/05/2021"), "Postando nas nuvens", "Novas dicas das nuvens", new AuthorDto(joao));
         Post post2 = new Post(null, sdf.parse("02/05/2021"), "Novo SOLID", "Boas arquiteturas", new AuthorDto(joao));
+
+        CommentDto c1 = new CommentDto("Tem um site de curso gratuito", sdf.parse("02/05/2021"), new AuthorDto(paulo));
+        CommentDto c2 = new CommentDto("Aproveite", sdf.parse("02/05/2021"), new AuthorDto(maria));
+        CommentDto c3 = new CommentDto("Vou aproveitar", sdf.parse("02/05/2021"), new AuthorDto(paulo));
+
+        post1.setComments(Arrays.asList(c1, c2));
+        post2.setComments(Arrays.asList(c3));
 
         postRepository.saveAll(Arrays.asList(post1, post2));
 
