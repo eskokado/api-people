@@ -6,6 +6,7 @@ import com.esk.desafio.dio.EskPeopleApi.dto.PeopleDto;
 import com.esk.desafio.dio.EskPeopleApi.dto.PostDto;
 import com.esk.desafio.dio.EskPeopleApi.services.PeopleService;
 import com.esk.desafio.dio.EskPeopleApi.services.PostService;
+import com.esk.desafio.dio.EskPeopleApi.util.URL;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -56,5 +57,12 @@ public class PostResource {
         obj.setId(id);
         postService.update(obj);
         return ResponseEntity.noContent().build();
+    }
+
+    @GetMapping(value = "/titlesearch")
+    public ResponseEntity<List<Post>> findByTitle(@RequestParam(value = "text", defaultValue = "") String text) {
+        text = URL.decodeParam(text);
+        List<Post> list = postService.findByTitle(text);
+        return ResponseEntity.ok(list);
     }
 }
