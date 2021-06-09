@@ -47,6 +47,10 @@ public class PostService {
         return postRepository.findByTitleContainingIgnoreCase(text);
     }
 
+    public List<Post> findByBody(String text) {
+        return postRepository.findByBody(text);
+    }
+
     private void updateData(Post objNew, Post obj) {
         objNew.setAuthor(obj.getAuthor());
         objNew.setId(obj.getId());

@@ -65,4 +65,11 @@ public class PostResource {
         List<Post> list = postService.findByTitle(text);
         return ResponseEntity.ok(list);
     }
+
+    @GetMapping(value = "/bodysearch")
+    public ResponseEntity<List<Post>> findByBody(@RequestParam(value = "text", defaultValue = "") String text) {
+        text = URL.decodeParam(text);
+        List<Post> list = postService.findByBody(text);
+        return ResponseEntity.ok(list);
+    }
 }
