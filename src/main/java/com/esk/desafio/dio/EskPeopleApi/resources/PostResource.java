@@ -7,6 +7,7 @@ import com.esk.desafio.dio.EskPeopleApi.dto.PostDto;
 import com.esk.desafio.dio.EskPeopleApi.services.PeopleService;
 import com.esk.desafio.dio.EskPeopleApi.services.PostService;
 import com.esk.desafio.dio.EskPeopleApi.util.URL;
+import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -25,6 +26,7 @@ public class PostResource {
     private PostService postService;
 
     @GetMapping
+    @ApiOperation(value="Retorna todos posts")
     public ResponseEntity<List<PostDto>> findAll() {
         List<Post> list = postService.findAll();
         List<PostDto> listDto = list.stream().map(p -> new PostDto(p)).collect(Collectors.toList());
@@ -32,6 +34,7 @@ public class PostResource {
     }
 
     @GetMapping(value = "/{id}")
+    @ApiOperation(value="Busca por id")
     public ResponseEntity<PostDto> findById(@PathVariable String id) {
         Post obj = postService.findById(id);
         PostDto objDto = new PostDto(obj);
@@ -39,6 +42,7 @@ public class PostResource {
     }
 
     @PostMapping
+    @ApiOperation(value="Insere post")
     public ResponseEntity<Void> insert(@RequestBody PostDto objDto) {
         Post obj = postService.fromDTO(objDto);
         obj = postService.insert(obj);
@@ -47,12 +51,14 @@ public class PostResource {
     }
 
     @DeleteMapping(value = "/{id}")
+    @ApiOperation(value="Remove por id")
     public ResponseEntity<Void> delete(@PathVariable String id) {
         postService.delete(id);
         return ResponseEntity.noContent().build();
     }
 
     @PutMapping(value = "/{id}")
+    @ApiOperation(value="Atualiza post")
     public ResponseEntity<PostDto> update(@PathVariable String id, @RequestBody PostDto objDto) {
         Post obj = postService.fromDTO(objDto);
         obj.setId(id);
@@ -61,6 +67,7 @@ public class PostResource {
     }
 
     @GetMapping(value = "/titlesearch")
+    @ApiOperation(value="Busca no título por texto")
     public ResponseEntity<List<Post>> findByTitle(@RequestParam(value = "text", defaultValue = "") String text) {
         text = URL.decodeParam(text);
         List<Post> list = postService.findByTitle(text);
@@ -68,6 +75,7 @@ public class PostResource {
     }
 
     @GetMapping(value = "/bodysearch")
+    @ApiOperation(value="Busca no body por texto")
     public ResponseEntity<List<Post>> findByBody(@RequestParam(value = "text", defaultValue = "") String text) {
         text = URL.decodeParam(text);
         List<Post> list = postService.findByBody(text);
@@ -75,6 +83,7 @@ public class PostResource {
     }
 
     @GetMapping(value = "/fullsearch")
+    @ApiOperation(value="Busca range de data e por texto nos campos title, body e message")
     public ResponseEntity<List<Post>> fullSearch(
             @RequestParam(value = "text", defaultValue = "") String text,
             @RequestParam(value = "minDate", defaultValue = "") String minDate,

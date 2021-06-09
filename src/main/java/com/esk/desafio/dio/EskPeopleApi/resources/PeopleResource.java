@@ -4,6 +4,7 @@ import com.esk.desafio.dio.EskPeopleApi.domain.People;
 import com.esk.desafio.dio.EskPeopleApi.domain.Post;
 import com.esk.desafio.dio.EskPeopleApi.dto.PeopleDto;
 import com.esk.desafio.dio.EskPeopleApi.services.PeopleService;
+import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -22,6 +23,7 @@ public class PeopleResource {
     private PeopleService peopleService;
 
     @GetMapping
+    @ApiOperation(value="Retorna todos people")
     public ResponseEntity<List<PeopleDto>> findAll() {
         List<People> list = peopleService.findAll();
         List<PeopleDto> listDto = list.stream().map(p -> new PeopleDto(p)).collect(Collectors.toList());
@@ -29,6 +31,7 @@ public class PeopleResource {
     }
 
     @GetMapping(value = "/{id}")
+    @ApiOperation(value="Busca por id")
     public ResponseEntity<PeopleDto> findById(@PathVariable String id) {
         People obj = peopleService.findById(id);
         PeopleDto objDto = new PeopleDto(obj);
@@ -36,6 +39,7 @@ public class PeopleResource {
     }
 
     @PostMapping
+    @ApiOperation(value="Insere People")
     public ResponseEntity<Void> insert(@RequestBody PeopleDto objDto) {
         People obj = peopleService.fromDTO(objDto);
         obj = peopleService.insert(obj);
@@ -44,12 +48,14 @@ public class PeopleResource {
     }
 
     @DeleteMapping(value = "/{id}")
+    @ApiOperation(value="Remove people por id")
     public ResponseEntity<Void> delete(@PathVariable String id) {
         peopleService.delete(id);
         return ResponseEntity.noContent().build();
     }
 
     @PutMapping(value = "/{id}")
+    @ApiOperation(value="Atualiza people")
     public ResponseEntity<PeopleDto> update(@PathVariable String id, @RequestBody PeopleDto objDto) {
         People obj = peopleService.fromDTO(objDto);
         obj.setId(id);
@@ -58,6 +64,7 @@ public class PeopleResource {
     }
 
     @GetMapping(value = "/{id}/posts")
+    @ApiOperation(value="Busca posts do people")
     public ResponseEntity<List<Post>> findPosts(@PathVariable String id) {
         People obj = peopleService.findById(id);
         return ResponseEntity.ok(obj.getPosts());
